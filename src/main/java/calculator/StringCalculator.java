@@ -1,24 +1,31 @@
 package calculator;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StringCalculator {
 
     public static int add(String input) {
-        //입력이 비어있거나 null이면 0 반환
         if (input == null || input.isEmpty()) {
             return 0;
         }
 
+        String delimiter = ",|:";
+        // 형식: //구분자\n숫자
+        Matcher matcher = Pattern.compile("//(.)\n(.*)").matcher(input);
+        if (matcher.matches()) {
+            delimiter = matcher.group(1); // 커스텀 구분자 추출
+            input = matcher.group(2);     // 나머지 문자열 (숫자 부분)
+        }
 
-        String[] tokens = input.split(",|:");
+        String[] tokens = input.split(delimiter);
 
-        //각 숫자를 더하기
         int sum = 0;
         for (String token : tokens) {
             int number = Integer.parseInt(token);
             sum += number;
         }
 
-        //결과 반환
         return sum;
     }
 }
