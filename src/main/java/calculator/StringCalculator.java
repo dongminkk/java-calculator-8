@@ -8,8 +8,8 @@ public class StringCalculator {
             return 0;
         }
 
-        //쉼표(,)를 기준으로 문자열 분리
-        String[] tokens = input.split(",");
+
+        String[] tokens = input.split(",|:");
 
         //각 숫자를 더하기
         int sum = 0;
